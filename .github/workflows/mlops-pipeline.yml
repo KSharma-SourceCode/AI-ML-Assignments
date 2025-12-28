@@ -26,13 +26,13 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run unit tests
+      - name: Run Unit Tests
         run: pytest --maxfail=1 --disable-warnings -q
 
-      - name: Detect ML code changes
+      - name: Detect ML Code Changes
         id: changes
         run: |
-          git diff --name-only HEAD~1 > files.txt
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} > files.txt || true
           echo "changed=$(cat files.txt)" >> $GITHUB_OUTPUT
 
       - name: Train model (development only if ML code changed)
