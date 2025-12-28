@@ -3,6 +3,8 @@ name: MLOps Multi-Branch Pipeline
 on:
   push:
     branches: [development, staging, main]
+    paths-ignore:
+      - ".github/workflows/pytest-debug.yml"
 
 defaults:
   run:
