@@ -4,6 +4,10 @@ on:
   push:
     branches: [development, staging, main]
 
+defaults:
+  run:
+    working-directory: M-Tech. Semester 3/MLOPS/Assignment-1/heart-disease-mlops
+    
 jobs:
   mlops:
     runs-on: ubuntu-latest
