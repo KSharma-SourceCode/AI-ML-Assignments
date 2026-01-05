@@ -1,0 +1,24 @@
+# Ignore IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Ignore Python virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Ignore mlruns directory created by MLflow
+mlruns/
+
+# Ignore mlflow DB files
+mlflow.db
+
+# Ignore pycache directories
+__pycache__/
+
+# .ipynb_checkpoints Ignore
+.ipynb_checkpoints/
+
+#Ignore artifacts inside notebooks folde
+artifacts/
