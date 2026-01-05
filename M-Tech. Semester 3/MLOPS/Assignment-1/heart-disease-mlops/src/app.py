@@ -9,17 +9,26 @@ app = FastAPI(title="Heart Disease Prediction API")
 # Model loading
 # -------------------------
 
-def get_latest_model_path(base_dir="model"):
+def get_latest_model_path(env="development", base_dir="model"):
+    env_dir = os.path.join(base_dir, env)
+
+    if not os.path.exists(env_dir):
+        raise FileNotFoundError(f"Environment directory not found: {env_dir}")
+
     versions = [
         int(d.replace("v", ""))
-        for d in os.listdir(base_dir)
-        if d.startswith("v")
+        for d in os.listdir(env_dir)
+        if d.startswith("v") and d.replace("v", "").isdigit()
     ]
+
+    if not versions:
+        raise FileNotFoundError("No model versions found")
+
     latest_version = max(versions)
-    return f"{base_dir}/v{latest_version}/heart_model.pkl"
+    return os.path.join(env_dir, f"v{latest_version}", "heart_model.pkl")
 
 
-MODEL_PATH = get_latest_model_path()
+MODEL_PATH = get_latest_model_path(env="development")
 model = joblib.load(MODEL_PATH)
 
 print(f"✅ Loaded model from {MODEL_PATH}")

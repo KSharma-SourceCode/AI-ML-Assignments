@@ -5,6 +5,7 @@ import mlflow
 import mlflow.sklearn
 import matplotlib.pyplot as plt
 import seaborn as sns
+import shutil
 
 from dotenv import load_dotenv
 from sklearn.pipeline import Pipeline
@@ -172,6 +173,15 @@ def train_random_forest(X_train, y_train, X_test, y_test, version,env):
         mlflow.sklearn.log_model(sk_model=pipeline, name="heart_disease_model_rf")
         return pipeline, acc
 
+def promote_model_to_production(version):
+    src = f"model/development/v{version}"
+    dst = f"model/production/v{version}"
+
+    os.makedirs("model/production", exist_ok=True)
+
+    shutil.copytree(src, dst, dirs_exist_ok=True)
+    print(f"✅ Model v{version} promoted to production")
+
 if __name__ == "__main__":
     mlflow.set_experiment("heart-disease-prediction")
 
@@ -223,3 +233,5 @@ if __name__ == "__main__":
 
     print(f"\nBest Model: {best_name} with Accuracy: {best_acc:.4f}")
     print(f"Model saved at: {model_dir}/heart_model.pkl")
+
+    promote_model_to_production(version)
