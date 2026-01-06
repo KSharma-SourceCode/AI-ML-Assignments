@@ -17,7 +17,7 @@ Predict whether a patient has heart disease based on clinical and diagnostic att
 
 - **Name:** UCI Heart Disease Dataset (Cleveland subset)  
 - **Records:** 303 (after cleaning: 297)  
-- **Features:** 13  
+- **Features:** 14  
 - **Target:** Heart disease (0 = No, 1 = Yes)
 
 ---
@@ -27,17 +27,29 @@ Predict whether a patient has heart disease based on clinical and diagnostic att
 ```
 heart-disease-mlops/
 ├── data/
-│   └── heart.csv
+│   └── raw/
+│       └── heart.csv
+│   └── processed/
+│       └── heart_clean.csv
 ├── src/
 │   ├── preprocess.py
 │   ├── train.py
 │   └── app.py
+├── notebooks/
+│   ├── 00_clean_data.ipynb
+│   ├── 01_eda.ipynb
+│   ├── 02_training.ipynb
+│   └── 03_inference.ipynb
 ├── tests/
 │   ├── test_preprocess.py
 │   └── test_train.py
 ├── model/
-│   └── v1/
-│       └── heart_model.pkl
+│   └── development/
+│               └── v1/  
+│                   └── heart_model.pkl
+│   └── production/
+│               └── v1/  
+│                   └── heart_model.pkl
 ├── mlruns/
 ├── requirements.txt
 ├── pytest.ini
